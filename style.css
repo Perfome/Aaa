@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:ital@0;1&display=swap');
+
+:root {
+    --dark-bg: #0f0f1a;
+    --flower-color-1: #4a235a; /* Koyu Mor */
+    --flower-color-2: #2a0a3a; /* Daha Koyu Mor */
+    --flower-color-3: #6a0572; /* Menekşe */
+    --gold-accent: #ffd700;
+    --text-color: #e0e0e0;
+}
+
+body {
+    margin: 0;
+    font-family: 'Lora', serif;
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+    overflow: hidden; /* Taşmaları engelle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.luxury-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, rgba(30, 0, 40, 0.6) 0%, var(--dark-bg) 70%);
+}
+
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    color: var(--gold-accent);
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3);
+    margin-bottom: 50px;
+    letter-spacing: 2px;
+    opacity: 0; /* JS ile görünür olacak */
+    transform: translateY(-20px); /* JS ile animasyon */
+    animation: fadeInSlideUp 2s forwards ease-out 0.5s;
+}
+
+.flower-stage {
+    position: relative;
+    width: 600px; /* Sahne genişliği */
+    height: 400px; /* Sahne yüksekliği */
+    perspective: 1000px; /* 3D derinlik için */
+}
+
+.flower {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, var(--flower-color-1) 0%, var(--flower-color-2) 100%);
+    box-shadow: 0 0 20px rgba(var(--flower-color-1), 0.7), 0 0 40px rgba(var(--flower-color-3), 0.5);
+    opacity: 0;
+    transform: scale(0.1) rotateX(60deg) rotateY(0deg) translateZ(0); /* Başlangıç durumu */
+    animation-fill-mode: forwards;
+}
+
+/* Çiçek pozisyonları ve özel renkler */
+.flower-1 {
+    top: 50%;
+    left: 20%;
+    background: radial-gradient(circle at center, var(--flower-color-1) 0%, var(--flower-color-2) 100%);
+    animation: growAndRotate 4s ease-out forwards 1.5s;
+}
+
+.flower-2 {
+    top: 30%;
+    left: 60%;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle at center, var(--flower-color-3) 0%, var(--flower-color-1) 100%);
+    animation: growAndRotate 5s ease-out forwards 2s;
+    animation-delay: 2.5s; /* Daha geç başlasın */
+}
+
+.flower-3 {
+    top: 70%;
+    left: 45%;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at center, var(--flower-color-2) 0%, var(--flower-color-3) 100%);
+    animation: growAndRotate 3.5s ease-out forwards 2.5s;
+    animation-delay: 3.5s; /* En geç başlasın */
+}
+
+/* Çiçek Büyüme ve Dönme Animasyonu */
+@keyframes growAndRotate {
+    0% {
+        opacity: 0;
+        transform: scale(0.1) rotateX(60deg) rotateY(0deg) translateZ(0);
+        box-shadow: 0 0 5px rgba(255, 215, 0, 0.2);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(0.7) rotateX(10deg) rotateY(30deg) translateZ(50px);
+        box-shadow: 0 0 30px rgba(var(--flower-color-1), 0.9), 0 0 60px rgba(var(--flower-color-3), 0.7);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotateX(0deg) rotateY(45deg) translateZ(100px);
+        box-shadow: 0 0 40px rgba(255, 215, 0, 0.8), 0 0 80px rgba(var(--flower-color-3), 0.9);
+    }
+}
+
+/* Başlık Animasyonu */
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Arka plan parlama efekti (opsiyonel) */
+.overlay-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(100, 0, 120, 0.15) 0%, transparent 50%);
+    opacity: 0.8;
+    animation: subtleFlare 10s infinite alternate ease-in-out;
+}
+
+@keyframes subtleFlare {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.05); opacity: 0.9; }
+}
